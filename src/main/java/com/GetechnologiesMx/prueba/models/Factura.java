@@ -1,7 +1,5 @@
 package com.GetechnologiesMx.prueba.models;
 
-import com.GetechnologiesMx.prueba.dto.FacturaDto;
-import com.GetechnologiesMx.prueba.dto.PersonaDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -9,8 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -63,7 +61,7 @@ public class DirectorioRestService {
         }
 
         if (this.directorio.existsByIdentificacion(personaDto.getIdentificacion()) ) {
-            return new ResponseEntity<Message>( new Message("El numero de identificacion ya existe"), HttpStatus.BAD_REQUEST );
+            return new ResponseEntity<Message>( new Message("El número de identificación ya existe"), HttpStatus.BAD_REQUEST );
         }
 
         Persona p = this.directorio.storePersona(personaDto);

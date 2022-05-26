@@ -2,11 +2,9 @@ package com.GetechnologiesMx.prueba.controller;
 
 import com.GetechnologiesMx.prueba.dto.FacturaDto;
 import com.GetechnologiesMx.prueba.dto.Message;
-import com.GetechnologiesMx.prueba.dto.PersonaDto;
 import com.GetechnologiesMx.prueba.models.Factura;
 import com.GetechnologiesMx.prueba.models.Persona;
 import com.GetechnologiesMx.prueba.services.Directorio;
-import com.GetechnologiesMx.prueba.services.Ventas;
 import com.GetechnologiesMx.prueba.services.VentasImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,14 +33,14 @@ public class FacturaRestService {
     @PostMapping
     public ResponseEntity<Message> store(@RequestBody FacturaDto facturaDto){
         if (facturaDto.getMonto() < 1 || facturaDto.getMonto() == null){
-            return new ResponseEntity<Message>( new Message("Debes ingresar un monto valido para la factura"), HttpStatus.BAD_REQUEST );
+            return new ResponseEntity<Message>( new Message("Debes ingresar un monto válido para la factura"), HttpStatus.BAD_REQUEST );
         }
         if (facturaDto.getIdentificacion().isEmpty() || facturaDto.getIdentificacion() == null){
             return new ResponseEntity<Message>( new Message("Debes asignarle un propietario a la factura"), HttpStatus.BAD_REQUEST );
         }
 
         if (!this.directorio.existsByIdentificacion( facturaDto.getIdentificacion() )) {
-            return new ResponseEntity<Message>( new Message("La identificacion ingresada no esta registrada..."), HttpStatus.BAD_REQUEST );
+            return new ResponseEntity<Message>( new Message("La identificación ingresada no esta registrada..."), HttpStatus.BAD_REQUEST );
         }
 
         Factura f = this.ventas.storeFactura(facturaDto);
@@ -50,7 +48,6 @@ public class FacturaRestService {
         if (f != null) {
             return new ResponseEntity<Message>( new Message("Registro exitoso"), HttpStatus.CREATED );
         }
-
         return ResponseEntity.badRequest().build();
     }
 

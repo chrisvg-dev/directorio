@@ -1,19 +1,14 @@
 package com.GetechnologiesMx.prueba.services;
 
-import com.GetechnologiesMx.prueba.controller.DirectorioRestService;
 import com.GetechnologiesMx.prueba.dto.PersonaDto;
-import com.GetechnologiesMx.prueba.models.Factura;
 import com.GetechnologiesMx.prueba.models.Persona;
 import com.GetechnologiesMx.prueba.repository.FacturaRepository;
 import com.GetechnologiesMx.prueba.repository.PersonaRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
