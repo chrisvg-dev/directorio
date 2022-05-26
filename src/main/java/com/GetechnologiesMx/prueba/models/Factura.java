@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
@@ -17,7 +18,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 @Table(name = "facturas")
-public class Factura {
+public class Factura implements Serializable {
+    private static final long serialVersionUID = 1454627423540482435L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

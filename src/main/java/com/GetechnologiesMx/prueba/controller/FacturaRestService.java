@@ -35,23 +35,23 @@ public class FacturaRestService {
     @PostMapping
     public ResponseEntity<Message> store(@RequestBody FacturaDto facturaDto){
         if (facturaDto.getMonto() < 1 || facturaDto.getMonto() == null){
-            return new ResponseEntity( new Message("Debes ingresar un monto valido para la factura"), HttpStatus.BAD_REQUEST );
+            return new ResponseEntity<Message>( new Message("Debes ingresar un monto valido para la factura"), HttpStatus.BAD_REQUEST );
         }
         if (facturaDto.getIdentificacion().isEmpty() || facturaDto.getIdentificacion() == null){
-            return new ResponseEntity( new Message("Debes asignarle un propietario a la factura"), HttpStatus.BAD_REQUEST );
+            return new ResponseEntity<Message>( new Message("Debes asignarle un propietario a la factura"), HttpStatus.BAD_REQUEST );
         }
 
         if (!this.directorio.existsByIdentificacion( facturaDto.getIdentificacion() )) {
-            return new ResponseEntity( new Message("La identificacion ingresada no esta registrada..."), HttpStatus.BAD_REQUEST );
+            return new ResponseEntity<Message>( new Message("La identificacion ingresada no esta registrada..."), HttpStatus.BAD_REQUEST );
         }
 
         Factura f = this.ventas.storeFactura(facturaDto);
 
         if (f != null) {
-            return new ResponseEntity( new Message("Registro exitoso"), HttpStatus.CREATED );
-        }else {
-            return new ResponseEntity( new Message("Registro fallido"), HttpStatus.BAD_REQUEST );
+            return new ResponseEntity<Message>( new Message("Registro exitoso"), HttpStatus.CREATED );
         }
+
+        return ResponseEntity.badRequest().build();
     }
 
 }

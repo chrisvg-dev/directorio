@@ -36,7 +36,6 @@ public class Persona implements Serializable {
     @OneToMany
     @JoinColumn(name = "fk_persona", referencedColumnName = "id")
     @JsonIgnoreProperties("persona")
-    @Transient
     private List<Factura> facturas;
 
 }

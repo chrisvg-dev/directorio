@@ -42,42 +42,35 @@ public class DirectorioRestService {
     public ResponseEntity<Message> eliminar(@PathVariable String id){
 
         if (this.directorio.findPersonaByIdentificacion(id) == null){
-            return new ResponseEntity( new Message("No hay registro con esa identificación..."), HttpStatus.BAD_REQUEST );
+            return new ResponseEntity<Message>( new Message("No hay registro con esa identificación..."), HttpStatus.BAD_REQUEST );
         }
 
         String mensaje = this.directorio.deletePersonaByIdentificacion(id);
-        return new ResponseEntity( new Message(mensaje), HttpStatus.OK );
+        return new ResponseEntity<Message>( new Message(mensaje), HttpStatus.OK );
 
     }
 
     @PostMapping
-    public ResponseEntity<Message> store(@RequestBody @Valid PersonaDto personaDto, BindingResult result){
-
-        if (result.hasErrors()){
-            for (ObjectError error : result.getAllErrors()) {
-                log.error(error.getDefaultMessage());
-            }
-        }
-
+    public ResponseEntity<Message> store(@RequestBody @Valid PersonaDto personaDto){
         if (personaDto.getNombre().isEmpty() || personaDto.getNombre().isBlank()){
-            return new ResponseEntity( new Message("Debes ingresar un nombre"), HttpStatus.BAD_REQUEST );
+            return new ResponseEntity<Message>( new Message("Debes ingresar un nombre"), HttpStatus.BAD_REQUEST );
         }
         if (personaDto.getApellidoPaterno().isEmpty() || personaDto.getApellidoPaterno().isBlank()){
-            return new ResponseEntity( new Message("Debes ingresar el apellido paterno"), HttpStatus.BAD_REQUEST );
+            return new ResponseEntity<Message>( new Message("Debes ingresar el apellido paterno"), HttpStatus.BAD_REQUEST );
         }
         if (personaDto.getIdentificacion().isEmpty() || personaDto.getIdentificacion().isBlank()){
-            return new ResponseEntity( new Message("La identificación es obligatoria"), HttpStatus.BAD_REQUEST );
+            return new ResponseEntity<Message>( new Message("La identificación es obligatoria"), HttpStatus.BAD_REQUEST );
         }
 
         if (this.directorio.existsByIdentificacion(personaDto.getIdentificacion()) ) {
-            return new ResponseEntity( new Message("El numero de identificacion ya existe"), HttpStatus.BAD_REQUEST );
+            return new ResponseEntity<Message>( new Message("El numero de identificacion ya existe"), HttpStatus.BAD_REQUEST );
         }
 
         Persona p = this.directorio.storePersona(personaDto);
         if (p != null) {
-            return new ResponseEntity( new Message("Registro exitoso"), HttpStatus.CREATED );
+            return new ResponseEntity<Message>( new Message("Registro exitoso"), HttpStatus.CREATED );
         } else {
-            return new ResponseEntity( new Message("Registro fallido"), HttpStatus.BAD_REQUEST );
+            return new ResponseEntity<Message>( new Message("Registro fallido"), HttpStatus.BAD_REQUEST );
         }
     }
 }
